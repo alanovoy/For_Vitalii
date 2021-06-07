@@ -1,0 +1,25 @@
+version: '2'
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "433:433"
+    volumes:
+      - ./:/etc/nginx/conf.d
+    container_name: nginx
+  nexus:
+    image: sonatype/nexus3:latest
+    volumes:
+      - ./nexus-data:/nexus-data
+    ports:
+      - "8081:8081"
+    container_name: nexus
+  jenkins:
+    image: jenkins/jenkins:latest
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - ./jenkins:/var/jenkins/home
+    container_name: jenkins
